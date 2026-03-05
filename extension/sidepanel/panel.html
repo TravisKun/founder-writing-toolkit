@@ -1,0 +1,209 @@
+<!DOCTYPE html>
+<html lang="en">
+<head>
+  <meta charset="UTF-8">
+  <meta name="viewport" content="width=device-width, initial-scale=1.0">
+  <title>Founder Writing Toolkit</title>
+  <link rel="stylesheet" href="panel.css">
+</head>
+<body>
+  <header>
+    <h1>FWT</h1>
+    <span id="surface-badge" class="badge">—</span>
+    <span id="backend-status" class="backend-status" title="Backend health">&#9679; Checking…</span>
+    <a id="report-issue-link" class="report-link" href="https://github.com/zhuchenming818-hue/founder-writing-toolkit/issues/new" target="_blank" title="Report an issue on GitHub">Report issue</a>
+  </header>
+
+  <!-- Session Context (surface-aware) -->
+  <section class="collapsible">
+    <button class="section-toggle" data-target="session-body">
+      Session Context <span class="arrow">&#9662;</span>
+    </button>
+    <div id="session-body" class="section-body">
+
+      <!-- EMAIL surface fields (shown when surface = email/gmail) -->
+      <div id="email-session">
+        <div class="ctx-field">
+          <label>Subject</label>
+          <div id="ctx-subject" class="ctx-value">—</div>
+        </div>
+        <div class="ctx-field">
+          <label>Recipients</label>
+          <div id="ctx-recipients" class="ctx-value">—</div>
+        </div>
+        <div class="ctx-field">
+          <label>Thread Text</label>
+          <div id="ctx-thread" class="ctx-value mono">—</div>
+        </div>
+        <div class="ctx-field">
+          <label>Draft Content</label>
+          <div id="ctx-draft" class="ctx-value mono">—</div>
+        </div>
+      </div>
+
+      <!-- LINKEDIN surface fields (shown when surface = linkedin) -->
+      <div id="linkedin-session" class="hidden">
+
+        <!-- Preset selector -->
+        <div class="mem-field">
+          <label>Preset</label>
+          <div class="preset-controls">
+            <select id="preset-select"><option value="">None</option></select>
+            <button id="btn-new-preset" class="btn btn-secondary btn-sm" title="Save current fields as a new preset">+</button>
+            <button id="btn-delete-preset" class="btn btn-danger btn-sm" title="Delete selected preset">&#10005;</button>
+          </div>
+        </div>
+
+        <!-- Save-preset inline form (hidden until + is clicked) -->
+        <div id="preset-save-row" class="hidden mem-field">
+          <input id="preset-name-input" type="text" placeholder="Preset name…" />
+          <div class="preset-save-actions">
+            <button id="btn-save-preset" class="btn btn-primary btn-sm">Save</button>
+            <button id="btn-cancel-preset" class="btn btn-secondary btn-sm">Cancel</button>
+          </div>
+        </div>
+
+        <!-- Post background -->
+        <div class="mem-field">
+          <label for="li-post-background">Post background / context</label>
+          <textarea id="li-post-background" rows="3" placeholder="What's this post about? Any context, event, or update?"></textarea>
+        </div>
+
+        <!-- Target audience -->
+        <div class="mem-field">
+          <label for="li-target-audience">Target audience / goal</label>
+          <input id="li-target-audience" type="text" placeholder="e.g. founders, investors, product builders…" />
+        </div>
+
+        <!-- Writing preferences (per-post on LinkedIn; in persistent memory on email) -->
+        <div class="mem-field">
+          <label for="li-tone">Tone preferences</label>
+          <input id="li-tone" type="text" placeholder="professional, concise, founder-friendly" />
+        </div>
+        <div class="mem-field">
+          <label for="li-constraints">Constraints</label>
+          <input id="li-constraints" type="text" placeholder="max 200 words, no jargon" />
+        </div>
+        <div class="mem-field">
+          <label for="li-cta">CTA</label>
+          <input id="li-cta" type="text" placeholder="Follow for more, DMs open…" />
+        </div>
+
+        <!-- Current draft (read-only, from content script) -->
+        <div class="ctx-field" style="margin-top:6px;">
+          <label>Current draft</label>
+          <div id="ctx-draft-li" class="ctx-value mono">—</div>
+        </div>
+
+      </div>
+    </div>
+  </section>
+
+  <!-- Persistent Memory (editable) -->
+  <section class="collapsible">
+    <button class="section-toggle" data-target="memory-body">
+      Persistent Memory <span class="arrow">&#9662;</span>
+    </button>
+    <div id="memory-body" class="section-body">
+
+      <!-- Profile Import bar -->
+      <div class="import-bar">
+        <button id="btn-import-profile" class="btn btn-secondary btn-sm">Import from LinkedIn profile</button>
+        <span id="import-status" class="import-status"></span>
+      </div>
+
+      <!-- Imported profile fields (revealed after first import) -->
+      <div id="imported-fields" class="hidden">
+        <div class="mem-field">
+          <label for="mem-imported-name">Name (imported)</label>
+          <input id="mem-imported-name" type="text" placeholder="Your name" />
+        </div>
+        <div class="mem-field">
+          <label for="mem-imported-headline">Headline (imported)</label>
+          <input id="mem-imported-headline" type="text" placeholder="Your LinkedIn headline" />
+        </div>
+        <div class="mem-field">
+          <label for="mem-imported-about">About (imported)</label>
+          <textarea id="mem-imported-about" rows="2" placeholder="Your LinkedIn About section"></textarea>
+        </div>
+        <div class="mem-divider"></div>
+      </div>
+
+      <!-- Standard memory fields -->
+      <div class="mem-field">
+        <label for="mem-bio">Short Bio</label>
+        <textarea id="mem-bio" rows="2" placeholder="I'm a founder building…"></textarea>
+      </div>
+      <div class="mem-field">
+        <label for="mem-projects">Projects</label>
+        <textarea id="mem-projects" rows="2" placeholder="- Project 1&#10;- Project 2"></textarea>
+      </div>
+      <div class="mem-field">
+        <label for="mem-pitch">Product Pitch</label>
+        <textarea id="mem-pitch" rows="2" placeholder="We help X do Y by Z"></textarea>
+      </div>
+      <!-- Hidden on LinkedIn (those fields move to Session Context on LinkedIn) -->
+      <div id="mem-email-prefs">
+        <div class="mem-field">
+          <label for="mem-tone">Tone Preferences</label>
+          <input id="mem-tone" type="text" placeholder="professional, concise" />
+        </div>
+        <div class="mem-field">
+          <label for="mem-constraints">Constraints</label>
+          <input id="mem-constraints" type="text" placeholder="max 150 words, no jargon" />
+        </div>
+        <div class="mem-field">
+          <label for="mem-cta">CTA Preferences</label>
+          <input id="mem-cta" type="text" placeholder="Would love to chat — free this week?" />
+        </div>
+      </div>
+
+    </div>
+  </section>
+
+  <!-- Playbook + Generate -->
+  <section class="action-bar">
+    <select id="playbook-select">
+      <option value="">Select playbook…</option>
+    </select>
+    <button id="btn-preview" class="btn btn-secondary" title="Preview what context will be used">Preview</button>
+    <button id="btn-generate" class="btn btn-primary">Generate</button>
+  </section>
+
+  <!-- Context Preview Overlay -->
+  <div id="preview-overlay" class="overlay hidden">
+    <div class="overlay-inner">
+      <h3>Context Preview</h3>
+      <pre id="preview-content"></pre>
+      <button id="btn-close-preview" class="btn btn-secondary">Close</button>
+    </div>
+  </div>
+
+  <!-- Loading spinner -->
+  <div id="spinner" class="hidden">
+    <div class="spinner-dot"></div>
+    <span>Generating…</span>
+  </div>
+
+  <!-- Results -->
+  <section id="results" class="hidden">
+    <h2>Variants</h2>
+    <div id="variants-container"></div>
+
+    <div class="collapsible">
+      <button class="section-toggle" data-target="plan-body">
+        Plan &amp; Used Context <span class="arrow">&#9662;</span>
+      </button>
+      <div id="plan-body" class="section-body">
+        <pre id="plan-content"></pre>
+      </div>
+    </div>
+  </section>
+
+  <!-- Shared modules loaded before panel.js (No-SW: panel is orchestration layer) -->
+  <script src="../shared/context-pack.js"></script>
+  <script src="../shared/playbooks.js"></script>
+  <script src="../shared/provider.js"></script>
+  <script src="panel.js"></script>
+</body>
+</html>

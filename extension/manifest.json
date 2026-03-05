@@ -1,0 +1,38 @@
+{
+  "manifest_version": 3,
+  "name": "Founder Writing Toolkit",
+  "version": "0.2.0",
+  "description": "One-click founder writing copilot for Gmail and LinkedIn",
+  "permissions": [
+    "sidePanel",
+    "activeTab",
+    "storage",
+    "tabs"
+  ],
+  "host_permissions": [
+    "*://mail.google.com/*",
+    "*://www.linkedin.com/*",
+    "http://localhost:8000/*"
+  ],
+  "content_scripts": [
+    {
+      "matches": ["*://mail.google.com/*"],
+      "js": ["content/gmail.js"],
+      "run_at": "document_idle"
+    },
+    {
+      "matches": ["*://www.linkedin.com/*"],
+      "js": ["content/linkedin.js"],
+      "run_at": "document_idle"
+    }
+  ],
+  "side_panel": {
+    "default_path": "sidepanel/panel.html"
+  },
+  "icons": {
+    "128": "icons/icon.png"
+  },
+  "action": {
+    "default_title": "Open Founder Writing Toolkit"
+  }
+}
